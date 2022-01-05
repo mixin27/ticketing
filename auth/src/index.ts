@@ -3,12 +3,16 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const start = async () => {
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGO_URI env must be specified');
+  }
+
   if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET env must be specified');
   }
 
   try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDB!');
   } catch (error) {
     console.error(error);

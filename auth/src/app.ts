@@ -1,13 +1,13 @@
 import express from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
+import { errorHandler } from '@xintickets/common';
+import { NotfoundError } from '@xintickets/common';
 
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/singup';
-import { errorHandler } from './middlewares/error-handler';
-import { NotfoundError } from './errors/not-found-error';
 
 const app = express();
 app.set('trust proxy', 1); // trust first proxy
