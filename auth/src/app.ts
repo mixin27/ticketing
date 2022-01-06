@@ -1,8 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
-import { errorHandler } from '@xintickets/common';
-import { NotfoundError } from '@xintickets/common';
+import { errorHandler, NotfoundError } from '@xintickets/common';
 
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
