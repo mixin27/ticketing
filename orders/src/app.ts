@@ -3,11 +3,6 @@ import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotfoundError, currentUser } from '@xintickets/common';
 
-import { createTicketRouter } from './routes/new';
-import { showTicketRouter } from './routes/show';
-import { indexTicketRouter } from './routes';
-import { updateTicketRouter } from './routes/update';
-
 const app = express();
 app.set('trust proxy', 1); // trust first proxy
 app.use(express.json());
@@ -18,11 +13,6 @@ app.use(
   })
 );
 app.use(currentUser);
-
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(updateTicketRouter);
 
 app.all('*', async () => {
   throw new NotfoundError();
