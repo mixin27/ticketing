@@ -21,6 +21,7 @@ it('should return an error if the ticket does not exist', async () => {
 
 it('should eturn an error if the ticket is already reserved', async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Concert',
     price: 20,
   });
@@ -43,6 +44,7 @@ it('should eturn an error if the ticket is already reserved', async () => {
 
 it('should reserve a ticket', async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Concert',
     price: 20,
   });
@@ -57,6 +59,7 @@ it('should reserve a ticket', async () => {
 
 it('should emit an order created event', async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Concert',
     price: 20,
   });
