@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import {
+  BadRequestError,
   NotAuthorizedError,
   NotfoundError,
   requireAuth,
@@ -25,13 +26,12 @@ router.put(
   validateRequest,
   async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.id);
-    if (!ticket) {
-      throw new NotfoundError();
-    }
+    if (!ticket) throw new NotfoundError();
 
-    if (ticket.userId !== req.currentUser!.id) {
-      throw new NotAuthorizedError();
-    }
+    if (ticket.orderId)
+      throw new BadRequestError('Cannot edit a reserved ticket');
+
+    if (ticket.userId !== req.currentUser!.id) throw new NotAuthorizedError();
 
     ticket.set({
       title: req.body.title,
@@ -43,6 +43,7 @@ router.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.send(ticket);
