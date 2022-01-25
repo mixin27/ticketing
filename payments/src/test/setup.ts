@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 declare global {
-  var signin: () => string[];
+  var signin: (id?: string) => string[];
 }
 
 // redirect import to __mock__
@@ -11,6 +11,9 @@ jest.mock('../nats-wrapper.ts');
 
 let conn: any;
 let mongoServer: any;
+
+process.env.STRIPE_KEY =
+  'sk_test_51IysjXGuFTCxSSwSs4TTInh3C60kD0vcSIO7Sw0Sm8F9vepfDMYrmrzAsIg59ZGMDR9vwe8iqP70FyvFJYg8WAse00rbPuCY2N';
 
 beforeAll(async () => {
   process.env.JWT_SECRET = 'asdf';
@@ -38,11 +41,11 @@ afterAll(async () => {
   }
 });
 
-global.signin = () => {
+global.signin = (id?: string) => {
   // {"jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDU3NWVhMWNhZWNlOTRjNTQxODE5NiIsImVtYWlsIjoibWl4aW5AZ21haWwuY29tIiwiaWF0IjoxNjQxMzc5MzEwfQ.AcDTPFbnHeQ886p_YPxmXbDWZQ8l3jUchNY4VO7GAyw"}
   // build a JWT payload. { id, email }
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com',
   };
 

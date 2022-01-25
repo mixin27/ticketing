@@ -20,6 +20,9 @@ const start = async () => {
   if (!process.env.NATS_CLUSTER_ID)
     throw new Error('NATS_CLUSTER_ID env must be specified');
 
+  if (!process.env.STRIPE_KEY)
+    throw new Error('STRIPE_KEY env must be specified');
+
   try {
     // NATS
     await natsWrapper.connect(
