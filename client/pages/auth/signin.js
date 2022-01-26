@@ -25,7 +25,7 @@ const SignInPage = () => {
     <div className="container">
       <form onSubmit={handleSubmit}>
         <h1>Sign In</h1>
-        <div className="form-group">
+        <div className="form-group my-2">
           <label htmlFor="email">Email Address</label>
           <input
             type="email"
@@ -36,7 +36,7 @@ const SignInPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group my-2">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -50,7 +50,7 @@ const SignInPage = () => {
 
         {errors}
 
-        <button className="btn btn-primary">Sign In</button>
+        <button className="btn btn-primary my-2">Sign In</button>
       </form>
     </div>
   );
